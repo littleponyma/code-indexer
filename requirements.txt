@@ -1,0 +1,8 @@
+tree-sitter>=0.23
+tree-sitter-c>=0.23
+tree-sitter-cpp>=0.23
+tree-sitter-java>=0.23
+lief>=0.14
+pyelftools>=0.31
+androguard>=4.1
+capstone>=5.0
