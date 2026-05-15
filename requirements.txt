@@ -6,3 +6,5 @@ lief>=0.14
 pyelftools>=0.31
 androguard>=4.1
 capstone>=5.0
+# Optional: IDA Pro idalib for deep binary analysis
+# Install separately: pip install idapro

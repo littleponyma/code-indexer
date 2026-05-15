@@ -13,30 +13,65 @@ No more repeated grepping. AI reads `panorama.json` and queries `index.db` to un
 - **Streaming DB writes**: noise filtering, dedup, string truncation — keeps DB size manageable even for large binaries
 - **Output**: SQLite database (`index.db`) + AI-consumable JSON summary (`panorama.json`) + human-readable Markdown report (`panorama.md`)
 
-## Quick Start
+## Install
 
-### Install
+### One-click installer
+
+**Windows:**
+
+```batch
+install.bat
+```
+
+**macOS / Linux:**
+
+```bash
+chmod +x install.sh
+./install.sh
+```
+
+The installer will:
+1. Check Python 3.10+ is available
+2. Install all Python dependencies
+3. Copy the Claude Code skill to `~/.claude/skills/code-indexer/`
+4. Check IDA Pro idalib availability (optional)
+5. Verify the installation
+
+### Manual install
 
 ```bash
 pip install -r requirements.txt
-```
 
-Dependencies:
-- tree-sitter + language grammars (C, C++, Java)
-- lief, pyelftools — ELF parsing
-- androguard — APK/DEX parsing
-- idapro (optional) — IDA Pro idalib for deep binary analysis
-
-### Install as Claude Code Skill
-
-Copy the skill to your global Claude Code skills directory:
-
-```bash
+# Install Claude Code skill
 mkdir -p ~/.claude/skills/code-indexer
 cp .claude/skills/code-indexer/* ~/.claude/skills/code-indexer/
 ```
 
-Then use it in any Claude Code session:
+### Dependencies
+
+| Package | Version | Purpose |
+|---------|---------|---------|
+| tree-sitter | >=0.23 | Source code parsing framework |
+| tree-sitter-c | >=0.23 | C language grammar |
+| tree-sitter-cpp | >=0.23 | C++ language grammar |
+| tree-sitter-java | >=0.23 | Java language grammar |
+| lief | >=0.14 | ELF/SO binary parsing |
+| pyelftools | >=0.31 | DWARF debug info |
+| androguard | >=4.1 | APK/DEX parsing |
+| capstone | >=5.0 | Disassembly engine |
+| idapro | optional | IDA Pro 9 idalib for deep binary analysis |
+
+### Tested Environments
+
+| OS | Python | Status |
+|----|--------|--------|
+| Windows 11 | Python 3.13.5 | Tested |
+| macOS 14 (Sonoma) | Python 3.12 | Tested |
+| Ubuntu 22.04 | Python 3.10 | Tested |
+
+## Usage
+
+### Claude Code Skill
 
 ```
 /code-indexer /path/to/project
@@ -45,7 +80,7 @@ Then use it in any Claude Code session:
 /code-indexer /path/to/lib.so --ida
 ```
 
-### CLI Usage
+### CLI
 
 ```bash
 python -m indexer.cli <path> [options]
