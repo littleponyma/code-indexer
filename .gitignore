@@ -28,6 +28,10 @@ Thumbs.db
 .venv/
 venv/
 
+# Claude
+.claude/
+start-claude.bat
+
 # IDA
 *.idb
 *.i64
