@@ -73,7 +73,9 @@ def _empty_result() -> dict:
 # --- idalib: open -> exec INP.py -> close -> parse exported files ---
 
 _INP_PATHS = [
-    # Skill directory (shipped with code-indexer)
+    # Shipped with code-indexer package (preferred)
+    Path(__file__).parent.parent / "ida_plugin" / "INP.py",
+    # Skill directory (legacy)
     Path(__file__).parent.parent.parent / ".claude" / "skills" / "code-indexer" / "INP.py",
     # Global skill directory
     Path.home() / ".claude" / "skills" / "code-indexer" / "INP.py",
@@ -140,7 +142,7 @@ def _parse_idalib(
             # exec INP.py script, then call do_export_sync
             inp_globals = {"__name__": "INP", "__builtins__": __builtins__}
             exec(inp.read_text(encoding="utf-8"), inp_globals)
-            inp_globals["do_export_sync"](export_dir=export_dir, skip_auto_analysis=True)
+            inp_globals["do_export_sync"](export_dir=export_dir, skip_auto_analysis=True, max_functions=500, timeout=300)
 
         finally:
             idapro.close_database(0)

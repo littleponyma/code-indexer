@@ -134,9 +134,9 @@ def parse_elf(
             if callee in imported_names:
                 pass  # Will be linked via call graph later
 
-    # Strings from .rodata and other sections
+    # Strings from .rodata and .dynstr (skip .data — mainly pointers, not strings)
     for section in binary.sections:
-        if section.name in (".rodata", ".data", ".dynstr"):
+        if section.name in (".rodata", ".dynstr"):
             try:
                 data = bytes(section.content)
                 _extract_strings(data, strings, section.virtual_address)

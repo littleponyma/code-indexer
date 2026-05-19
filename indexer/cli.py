@@ -19,6 +19,7 @@ def main():
     parser.add_argument("--no-ida", action="store_true", help="Skip IDA analysis")
     parser.add_argument("-d", "--depth", type=int, default=3, help="Call chain drill depth (default: 3)")
     parser.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+    parser.add_argument("--max-functions", type=int, default=0, help="Max functions to decompile via IDA (0=unlimited, default: 0)")
 
     args = parser.parse_args()
 
